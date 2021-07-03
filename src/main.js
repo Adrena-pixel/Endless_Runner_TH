@@ -10,9 +10,7 @@ let config = {
         default: 'arcade',
         arcade: {
             debug: true,
-            gravity: {
-                y: 200
-            }
+    
         }
     },
     scene: [ Load, Menu, Play ]
