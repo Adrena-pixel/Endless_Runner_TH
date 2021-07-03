@@ -9,13 +9,13 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            //debug: true,
+            debug: true,
             gravity: {
                 y: 200
             }
         }
     },
-    scene: [ Menu, Play ]
+    scene: [ Load, Menu, Play ]
 }
 var game = new Phaser.Game(config);
 //define key varibles
