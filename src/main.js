@@ -1,0 +1,22 @@
+let config = {
+    type: Phaser.AUTO,
+    height: 700,
+    width: 1000,
+    scale: {
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    //set up physics enginee built in phaser
+    physics: {
+        default: 'arcade',
+        arcade: {
+            //debug: true,
+            gravity: {
+                y: 200
+            }
+        }
+    },
+    scene: [ Menu, Play ]
+}
+var game = new Phaser.Game(config);
+//define key varibles
+let keyZ;
