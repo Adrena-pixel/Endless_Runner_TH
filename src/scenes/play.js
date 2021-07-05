@@ -10,7 +10,10 @@ class Play extends Phaser.Scene {
     create (){
         
         var ground = this.physics.add.sprite(0,500,'ground').setOrigin(0, 0);
+        this.scroll_ground = this.add.tileSprite(0, 500, 1000, 700, 'ground').setOrigin(0, 0);
+
         this.character = new character(this, 100, 0, 0).setOrigin(0, 0); // (100, 500)
+
 
         ground.body.immovable = true;
         this.physics.add.collider(this.character, ground);
@@ -21,7 +24,8 @@ class Play extends Phaser.Scene {
 
     }
     update(){
-       this.character.update();
+        this.scroll_ground.tilePositionX += 6;
+        this.character.update();
         
     }
     
