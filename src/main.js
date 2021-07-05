@@ -17,4 +17,4 @@ let config = {
 }
 var game = new Phaser.Game(config);
 //define key varibles
-let keyZ;
+let keyZ, keyX;
