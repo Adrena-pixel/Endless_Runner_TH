@@ -20,6 +20,7 @@ class Menu extends Phaser.Scene {
         this.add.text(300, 250, 'Endless Runner', menuConfig).setOrigin(0, 0);
         this.add.text(275, 350, 'press z to start', menuConfig).setOrigin(0, 0);
         keyZ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+        
     }
     update (){
         if (Phaser.Input.Keyboard.JustDown(keyZ)) {

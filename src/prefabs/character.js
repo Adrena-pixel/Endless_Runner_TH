@@ -5,13 +5,19 @@ class character extends Phaser.GameObjects.Sprite {
       // add object to existing scene
         scene.add.existing(this);
         scene.physics.add.existing(this); //add to physics
-        //this.setVelocityY(200);
-        //this.setImmovable(); 
-
+        this.body.gravity.y = 300;
+        
+        const Jumppressed = Phaser.Input.Keyboard.JustDown(keyZ); 
+        
+        
     }
 
-    //update (){
-
-    //}
+    
+    update (){
+        if (Phaser.Input.Keyboard.JustDown(keyZ)){
+            console.log ("key reached");
+            this.body.velocity.y = -100;
+        }
+    }
 
 }
