@@ -9,8 +9,7 @@ class character extends Phaser.GameObjects.Sprite {
 
         //this.cursorKeys = this.input.keyboard.createCursorKeys();
         //const Jumppressed = Phaser.Input.Keyboard.JustDown(keyZ); 
-        this.jumpped = false;
-        
+        this.jumpped = false;        
         
     }
 
@@ -22,11 +21,13 @@ class character extends Phaser.GameObjects.Sprite {
             this.body.velocity.y = -600;
             this.jumpped = true;
         }
+
         if (this.y < 400){
             this.jumpped = true;
         } else if (this.y >= 400 ){
             this.jumpped = false;
         }
+
         //add a new fast fall function
         if (Phaser.Input.Keyboard.JustDown(keyX) && this.jumpped == true){
             this.body.velocity.y = 800;
