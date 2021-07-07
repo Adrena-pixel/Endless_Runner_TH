@@ -1,3 +1,4 @@
+const terrainnumber = 1;
 
 class Play extends Phaser.Scene {
     constructor() {
@@ -5,6 +6,11 @@ class Play extends Phaser.Scene {
 
     }
     create (){
+
+        this.terraingroup = null;
+        this.autoterrainheight = [50, 500];
+        this.terraindistance = [300, 500];
+        this.realdistance = 0;
         
         //var ground = this.physics.add.sprite(0,500,'ground').setOrigin(0, 0);
         //this.scroll_ground = this.add.tileSprite(0, 500, 1000, 700, 'ground').setOrigin(0, 0);
@@ -41,9 +47,13 @@ class Play extends Phaser.Scene {
 
         this.addPlatform(game.config.width, game.config.width/2);
 
-        //add collider to platform and player
-        this.physics.add.collider(this.character, this.platformGroup);
-        //add collider done
+
+        //create terrain
+        this.createTerrain(); 
+        //create terrain done
+
+        //create collider for terrain
+        this.createCollider();
 
     }
     //define a function to generate platform
@@ -70,6 +80,68 @@ class Play extends Phaser.Scene {
     }
     //  end of addPlatform function
 
+    createTerrain() {
+        this.terraingroup = this.physics.add.group();
+
+        for (let i = 0; i < terrainnumber; i++){
+            const terrain = this.terraingroup.create(1000, 50, 'terrain')
+            .setImmovable(true)
+            .setOrigin(0, 0);
+    
+            this.putbarrier(terrain)
+        }
+
+        this.terraingroup.setVelocityX(-400);
+    }
+
+    createCollider() {
+        this.physics.add.collider(this.character, this.terraingroup, this.gameover, null, this);
+        this.physics.add.collider(this.character, this.ground);
+        this.physics.add.collider(this.character, this.platformGroup);
+    }
+
+    getrightmostterrain() {
+        let rightmostX = 0;
+    
+        this.terraingroup.getChildren().forEach(function(terrain){
+            rightmostX = Math.max(terrain.x, rightmostX);
+        })
+        return rightmostX;
+    }
+
+    putbarrier(terrain) {
+        const rightmostX = this.getrightmostterrain();
+        const realdistance = Phaser.Math.Between(this.terraindistance[0], this.terraindistance[1]);
+        const getterrainheight = Phaser.Math.Between(this.autoterrainheight[0], this.autoterrainheight[1]);
+        terrain.x = rightmostX + realdistance + 1500;
+        terrain.y = getterrainheight;
+    }
+
+    recycleterrains() {
+        const pushterrains = [];
+        this.terraingroup.getChildren().forEach(terrain =>{
+            if (terrain.getBounds().right <= 0){
+                pushterrains.push(terrain);
+                if (pushterrains.length === 1){
+                    this.putbarrier(...pushterrains);
+                    //this.increaseScore();
+                    //this.saveBestScore();
+                }
+            }
+        })
+    }
+    //gameover 
+    gameover() { //unput
+        this.physics.pause();
+        this.time.addEvent({
+            delay: 1000,
+            callback: () => {
+                this.scene.restart();
+            },
+            loop: false
+        })
+    }
+
     update(){
         //this.scroll_ground.tilePositionX += 6;
         this.character.update();
@@ -91,6 +163,8 @@ class Play extends Phaser.Scene {
             var nextplatformWidth = Phaser.Math.Between(50, 250);
             this.addPlatform(nextplatformWidth, game.config.width + nextplatformWidth / 2);
         }
+
+        this.recycleterrains();
         
     }
 
