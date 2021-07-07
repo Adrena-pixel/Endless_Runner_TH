@@ -13,7 +13,7 @@ let config = {
     
         }
     },
-    scene: [ Load, Menu, Play ]
+    scene: [ Load, Menu, Play, GameOver ]
 }
 var game = new Phaser.Game(config);
 //define key varibles

@@ -16,7 +16,6 @@ class Play extends Phaser.Scene {
         //this.scroll_ground = this.add.tileSprite(0, 500, 1000, 700, 'ground').setOrigin(0, 0);
 
         this.character = new character(this, 100, 100, 0).setOrigin(0, 0); // (100, 400)
-        //this.character.setCollideWorldBounds(true);
         
         //ground.body.immovable = true;
         //this.physics.add.collider(this.character, ground);
@@ -134,9 +133,10 @@ class Play extends Phaser.Scene {
     gameover() { //unput
         this.physics.pause();
         this.time.addEvent({
-            delay: 1000,
+            delay: 100,
             callback: () => {
-                this.scene.restart();
+                //his.scene.restart();
+                this.scene.start('gameoverScene');
             },
             loop: false
         })
@@ -165,6 +165,11 @@ class Play extends Phaser.Scene {
         }
 
         this.recycleterrains();
+
+        // fall down gameover
+        if (this.character.y > game.config.width){
+            this.gameover();
+        }
         
     }
 
