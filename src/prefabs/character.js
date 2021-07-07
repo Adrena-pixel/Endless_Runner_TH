@@ -20,7 +20,7 @@ class character extends Phaser.GameObjects.Sprite {
             this.x = 100;
         }
         
-        if (Phaser.Input.Keyboard.JustDown(keyZ) && this.jumpped == false){
+        if (Phaser.Input.Keyboard.JustDown(keyZ) && this.jumpped == false && this.y == 400){
             //console.log ("key reached"); //
             this.body.velocity.y = -600;
             this.jumpped = true;
@@ -31,6 +31,8 @@ class character extends Phaser.GameObjects.Sprite {
         } else if (this.y >= 400 ){
             this.jumpped = false;
         }
+
+        
 
         //add a new fast fall function
         if (Phaser.Input.Keyboard.JustDown(keyX) && this.jumpped == true){
