@@ -146,13 +146,14 @@ class Play extends Phaser.Scene {
                 pushterrains.push(terrain);
                 if (pushterrains.length === 1){
                     this.putbarrier(...pushterrains);
-                    this.saveBestScore();
+                    //this.saveBestScore();
                 }
             }
         })
     }
     //gameover 
     gameover() { //unput
+        this.saveBestScore();
         this.physics.pause();
         this.time.addEvent({
             delay: 800,
