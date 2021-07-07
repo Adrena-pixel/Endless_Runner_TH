@@ -1,4 +1,4 @@
-const terrainnumber = 1;
+var terrainnumber = 1;
 
 class Play extends Phaser.Scene {
     constructor() {
@@ -11,6 +11,9 @@ class Play extends Phaser.Scene {
         this.autoterrainheight = [50, 500];
         this.terraindistance = [300, 500];
         this.realdistance = 0;
+
+        this.terrainSpeed = -600;
+        this.platformSpeed = -400;
         
         //var ground = this.physics.add.sprite(0,500,'ground').setOrigin(0, 0);
         //this.scroll_ground = this.add.tileSprite(0, 500, 1000, 700, 'ground').setOrigin(0, 0);
@@ -54,6 +57,15 @@ class Play extends Phaser.Scene {
         //create collider for terrain
         this.createCollider();
 
+        //set difficulties
+        this.difficultyTimer = this.time.addEvent({
+            delay: 5000,
+            callback: this.speedup,
+            callbackScope: this,
+            loop: true
+        });
+
+
     }
     //define a function to generate platform
     addPlatform(platformWidth, posX){
@@ -70,7 +82,7 @@ class Play extends Phaser.Scene {
         else {
             platform = this.physics.add.sprite(posX, 600, "ground");
             platform.setImmovable(true);
-            platform.setVelocityX( -500 );
+            platform.setVelocityX(this.platformSpeed); //platformSpeed
             this.platformGroup.add (platform);
         }
         platform.displayWidth = platformWidth;
@@ -90,7 +102,7 @@ class Play extends Phaser.Scene {
             this.putbarrier(terrain)
         }
 
-        this.terraingroup.setVelocityX(-400);
+        this.terraingroup.setVelocityX(this.terrainSpeed); // terrainSpeed
     }
 
     createCollider() {
@@ -133,13 +145,24 @@ class Play extends Phaser.Scene {
     gameover() { //unput
         this.physics.pause();
         this.time.addEvent({
-            delay: 100,
+            delay: 800,
             callback: () => {
                 //his.scene.restart();
+                
                 this.scene.start('gameoverScene');
+                
             },
             loop: false
         })
+    }
+
+    //set speed up
+    speedup(){
+        //this.platformSpeed -= 100;
+        this.terrainSpeed -= 100;
+        this.createTerrain();
+        
+        
     }
 
     update(){
@@ -168,6 +191,7 @@ class Play extends Phaser.Scene {
 
         // fall down gameover
         if (this.character.y > game.config.width){
+            this.cameras.main.shake(100, 0.01);
             this.gameover();
         }
         
