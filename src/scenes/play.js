@@ -1,5 +1,6 @@
 var terrainnumber = 1;
 
+
 class Play extends Phaser.Scene {
     constructor() {
         super('playScene');
@@ -61,6 +62,16 @@ class Play extends Phaser.Scene {
         this.difficultyTimer = this.time.addEvent({
             delay: 5000,
             callback: this.speedup,
+            callbackScope: this,
+            loop: true
+        });
+        
+        //create and keep track of score
+        this.createScore();
+
+        this.scoreTimer = this.time.addEvent({
+            delay: 100,
+            callback: this.increaseScore,
             callbackScope: this,
             loop: true
         });
@@ -135,8 +146,7 @@ class Play extends Phaser.Scene {
                 pushterrains.push(terrain);
                 if (pushterrains.length === 1){
                     this.putbarrier(...pushterrains);
-                    //this.increaseScore();
-                    //this.saveBestScore();
+                    this.saveBestScore();
                 }
             }
         })
@@ -161,9 +171,30 @@ class Play extends Phaser.Scene {
         //this.platformSpeed -= 100;
         this.terrainSpeed -= 100;
         this.createTerrain();
-        
-        
+        this.physics.add.collider(this.character, this.terraingroup, this.gameover, null, this);
     }
+
+    // score functions
+    createScore() {
+        this.score = 0;
+        const bestScore = localStorage.getItem('bestScore');
+        this.scoreText = this.add.text(16, 16, `Score: ${0}`, { fontSize: '32px', fill: '#fff'});
+        this.add.text(16, 52, `Best score: ${bestScore || 0}`, { fontSize: '18px', fill: '#fff'});
+    }
+    increaseScore() { 
+        this.score ++;
+        this.scoreText.setText(`Score: ${this.score}`)
+    }
+
+    saveBestScore() { 
+        const bestScoreText = localStorage.getItem('bestScore');
+        const bestScore = bestScoreText && parseInt(bestScoreText, 10);
+    
+        if (!bestScore || this.score > bestScore) {
+          localStorage.setItem('bestScore', this.score);
+        }
+    }
+    // score function done
 
     update(){
         //this.scroll_ground.tilePositionX += 6;
@@ -187,6 +218,7 @@ class Play extends Phaser.Scene {
             this.addPlatform(nextplatformWidth, game.config.width + nextplatformWidth / 2);
         }
 
+        //spawn new terrains
         this.recycleterrains();
 
         // fall down gameover
