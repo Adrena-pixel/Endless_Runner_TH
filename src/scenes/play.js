@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
         //this.scroll_ground = this.add.tileSprite(0, 500, 1000, 700, 'ground').setOrigin(0, 0);
 
         this.character = new character(this, 100, 100, 0).setOrigin(0, 0); // (100, 400)
-
+        //this.character.setCollideWorldBounds(true);
         
         //ground.body.immovable = true;
         //this.physics.add.collider(this.character, ground);
@@ -42,7 +42,7 @@ class Play extends Phaser.Scene {
         this.addPlatform(game.config.width, game.config.width/2);
 
         //add collider to platform and player
-        //this.physics.add.collider(this.player, this.platformGroup);
+        this.physics.add.collider(this.character, this.platformGroup);
         //add collider done
 
     }
@@ -61,7 +61,7 @@ class Play extends Phaser.Scene {
         else {
             platform = this.physics.add.sprite(posX, 600, "ground");
             platform.setImmovable(true);
-            platform.setVelocityX( -300 );
+            platform.setVelocityX( -500 );
             this.platformGroup.add (platform);
         }
         platform.displayWidth = platformWidth;

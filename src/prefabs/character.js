@@ -6,6 +6,7 @@ class character extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this); //add to physics
         this.body.gravity.y = 600;
+       
 
         //this.cursorKeys = this.input.keyboard.createCursorKeys();
         //const Jumppressed = Phaser.Input.Keyboard.JustDown(keyZ); 
@@ -15,6 +16,9 @@ class character extends Phaser.GameObjects.Sprite {
 
     
     update (){
+        if (this.x < 100){
+            this.x = 100;
+        }
         
         if (Phaser.Input.Keyboard.JustDown(keyZ) && this.jumpped == false){
             //console.log ("key reached"); //
