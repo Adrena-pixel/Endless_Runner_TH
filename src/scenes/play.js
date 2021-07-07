@@ -1,6 +1,6 @@
 var terrainnumber = 1;
 var trackscore;
-
+var cursors;
 
 class Play extends Phaser.Scene {
     constructor() {

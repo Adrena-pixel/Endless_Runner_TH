@@ -8,9 +8,9 @@ class character extends Phaser.GameObjects.Sprite {
         this.body.gravity.y = 600;
        
 
-        //this.cursorKeys = this.input.keyboard.createCursorKeys();
         //const Jumppressed = Phaser.Input.Keyboard.JustDown(keyZ); 
-        this.jumpped = false;        
+        this.jumpped = false;
+           
         
     }
 
@@ -30,7 +30,13 @@ class character extends Phaser.GameObjects.Sprite {
             this.jumpped = true;
         } else if (this.y >= 400 ){
             this.jumpped = false;
+            
         }
+
+        //add a glide action
+        /*if (this.input.keyboard.checkDown(keyZ, 250) && this.jumpped == true ){
+            this.body.velocity.y = 0;   
+        }*/
 
         
 
