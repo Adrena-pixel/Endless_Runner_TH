@@ -1,4 +1,5 @@
 var terrainnumber = 1;
+var trackscore;
 
 
 class Play extends Phaser.Scene {
@@ -9,7 +10,7 @@ class Play extends Phaser.Scene {
     create (){
 
         this.terraingroup = null;
-        this.autoterrainheight = [50, 500];
+        this.autoterrainheight = [50, 400];
         this.terraindistance = [300, 500];
         this.realdistance = 0;
 
@@ -146,13 +147,12 @@ class Play extends Phaser.Scene {
                 pushterrains.push(terrain);
                 if (pushterrains.length === 1){
                     this.putbarrier(...pushterrains);
-                    //this.saveBestScore();
                 }
             }
         })
     }
     //gameover 
-    gameover() { //unput
+    gameover() {
         this.saveBestScore();
         this.physics.pause();
         this.time.addEvent({
