@@ -3,7 +3,7 @@ class Load extends Phaser.Scene {
         super('loadScene');
     }
     preload (){
-        this.load.image('character', './assets/character.png');
+        //this.load.image('character', './assets/character.png');
         this.load.image('ground', './assets/ground.png');
         this.load.image('platform', './assets/platform.png');
        
@@ -15,13 +15,19 @@ class Load extends Phaser.Scene {
         this.load.audio('start', './assets/press_start_er.wav');
         this.load.audio('hit', './assets/hit_er.wav');
         this.load.audio('fall', './assets/fall_er.wav');
-        
         this.load.audio('bgm', './assets/bgm.mp3');
+
 
         this.load.spritesheet('terrain', './assets/terrain.png', {
             frameWidth: 100,
             frameHeight: 50
-        }); 
+        });
+        this.load.spritesheet('character', './assets/character.png', {
+            frameWidth: 100,
+            frameHeight: 100,
+            startFrame: 0,
+            endFrame: 3
+        });
     }
     create (){
         this.scene.start('menuScene');

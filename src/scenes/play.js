@@ -62,8 +62,16 @@ class Play extends Phaser.Scene {
             frameRate: 8,
             repeat: -1
         });
-        //this.terrain.play("skull");
         
+        
+        //create animation for character
+        this.anims.create({
+            key: "character",
+            frames: this.anims.generateFrameNumbers('character', { start: 0, end: 3, first: 0}),
+            frameRate: 5,
+            repeat: -1
+        });
+        this.character.anims.play("character");
 
         //create terrain
         this.createTerrain(); 
@@ -142,11 +150,7 @@ class Play extends Phaser.Scene {
     
             this.putbarrier(terrain);
         }
-        //this.terraingroup.callAll('animations.add', 'animations', 'skull', 4, 20, true);
-        //this.terraingroup.callAll('play', null, 'skull');
-        /*this.terraingroup.getChildren().forEach(function(terrain){
-            terrain.anims.play('skull');
-        });*/
+        //add animation
         this.terraingroup.getChildren().forEach(function(terrain){
             terrain.anims.play('skull');
         });
