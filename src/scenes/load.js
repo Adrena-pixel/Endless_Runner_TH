@@ -11,6 +11,11 @@ class Load extends Phaser.Scene {
         this.load.image('bg2', './assets/bg2.png'); 
         this.load.image('bg3', './assets/bg3.png'); 
 
+        this.load.audio('jump', './assets/jump_er.wav');
+        this.load.audio('start', './assets/press_start_er.wav');
+        this.load.audio('hit', './assets/hit_er.wav');
+        this.load.audio('bgm', './assets/bgm.mp3');
+
         this.load.spritesheet('terrain', './assets/terrain.png', {
             frameWidth: 100,
             frameHeight: 50

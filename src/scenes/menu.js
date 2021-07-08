@@ -29,7 +29,7 @@ class Menu extends Phaser.Scene {
               //spaceshipSpeed: 3,
               //gameTimer: 60000    
             //}
-            //this.sound.play('sfx_select');
+            this.sound.play('start');
             this.scene.start('playScene');    
           }
     }

@@ -91,6 +91,20 @@ class Play extends Phaser.Scene {
         });
 
 
+        //create bgm
+        this.bgm = this.sound.add('bgm');
+        var bgmconfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+        this.bgm.play (bgmconfig)
+
+
     }
     //define a function to generate platform
     addPlatform(platformWidth, posX){
@@ -176,13 +190,13 @@ class Play extends Phaser.Scene {
     }
     //gameover 
     gameover() {
+        this.sound.play('hit');
+        this.bgm.stop();
         this.saveBestScore();
         this.physics.pause();
         this.time.addEvent({
-            delay: 800,
+            delay: 100,
             callback: () => {
-                //his.scene.restart();
-                
                 this.scene.start('gameoverScene');
                 
             },
