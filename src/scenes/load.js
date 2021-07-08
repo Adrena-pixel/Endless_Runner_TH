@@ -4,12 +4,17 @@ class Load extends Phaser.Scene {
     }
     preload (){
         this.load.image('character', './assets/character.png');
-        this.load.image('ground', './assets/ground.jpg');
+        this.load.image('ground', './assets/ground.png');
         this.load.image('platform', './assets/platform.png');
-        this.load.image('terrain', './assets/terrain.png'); 
+       
         this.load.image('bg1', './assets/bg1.png'); 
         this.load.image('bg2', './assets/bg2.png'); 
         this.load.image('bg3', './assets/bg3.png'); 
+
+        this.load.spritesheet('terrain', './assets/terrain.png', {
+            frameWidth: 100,
+            frameHeight: 50
+        }); 
     }
     create (){
         this.scene.start('menuScene');

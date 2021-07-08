@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
     create (){
 
         this.terraingroup = null;
-        this.autoterrainheight = [50, 400];
+        this.autoterrainheight = [50, 390];
         this.terraindistance = [300, 500];
         this.realdistance = 0;
 
@@ -55,11 +55,20 @@ class Play extends Phaser.Scene {
 
         this.addPlatform(game.config.width, game.config.width/2);
 
+        //create animation for terrain
+        this.anims.create({
+            key: "skull",
+            frames: this.anims.generateFrameNumbers("terrain"),
+            frameRate: 8,
+            repeat: -1
+        });
+        //this.terrain.play("skull");
+        
 
         //create terrain
         this.createTerrain(); 
         //create terrain done
-
+        
         //create collider for terrain
         this.createCollider();
 
@@ -111,12 +120,22 @@ class Play extends Phaser.Scene {
         this.terraingroup = this.physics.add.group();
 
         for (let i = 0; i < terrainnumber; i++){
-            const terrain = this.terraingroup.create(1000, 50, 'terrain')
-            .setImmovable(true)
-            .setOrigin(0, 0);
+            const terrain = this.terraingroup.create(1000, 50, 'terrain'); //this.add.sprite this.terraingroup.create
+            terrain.setImmovable(true);
+            terrain.setOrigin(0, 0);
+            
+            
     
-            this.putbarrier(terrain)
+            this.putbarrier(terrain);
         }
+        //this.terraingroup.callAll('animations.add', 'animations', 'skull', 4, 20, true);
+        //this.terraingroup.callAll('play', null, 'skull');
+        /*this.terraingroup.getChildren().forEach(function(terrain){
+            terrain.anims.play('skull');
+        });*/
+        this.terraingroup.getChildren().forEach(function(terrain){
+            terrain.anims.play('skull');
+        });
 
         this.terraingroup.setVelocityX(this.terrainSpeed); // terrainSpeed
     }
@@ -183,8 +202,8 @@ class Play extends Phaser.Scene {
     createScore() {
         this.score = 0;
         const bestScore = localStorage.getItem('bestScore');
-        this.scoreText = this.add.text(16, 16, `Score: ${0}`, { fontSize: '32px', fill: '#fff'});
-        this.add.text(16, 52, `Best score: ${bestScore || 0}`, { fontSize: '18px', fill: '#fff'});
+        this.scoreText = this.add.text(16, 16, `Score: ${0}`, { fontSize: '32px', fill: '#000'});
+        this.add.text(16, 52, `Best score: ${bestScore || 0}`, { fontSize: '18px', fill: '#000'});
     }
     increaseScore() { 
         this.score ++;
