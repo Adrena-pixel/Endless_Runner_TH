@@ -6,6 +6,7 @@ class character extends Phaser.GameObjects.Sprite {
         scene.physics.add.existing(this);
         this.jumpSound = scene.sound.add('jump');
         this.fallSound = scene.sound.add('fall');
+        this.flySound = scene.sound.add('fly');
 
         
 
@@ -42,20 +43,20 @@ class character extends Phaser.GameObjects.Sprite {
 
             this.body.velocity.y = -500;
             this.jumpcount++;
-            this.flycount ++;
+            //this.flycount ++;
             this.jumpSound.play();
         }
 
         //add a new fast fall function
         if (Phaser.Input.Keyboard.JustDown(keyX) && this.jumpped == true){
             this.body.velocity.y = 800;
-            this.flycount ++;
+            //this.flycount ++;
             this.fallSound.play();
         }
         
         //fly
         if (Phaser.Input.Keyboard.JustDown(keyC) && this.jumpped == true && this.flycount <= 5){
-            //this.body.velocity.x = 100; //
+            this.flySound.play();
             this.body.velocity.y = 0;
             this.flycount ++;
         }
