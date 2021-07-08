@@ -7,7 +7,8 @@ class Load extends Phaser.Scene {
         this.load.image('ground', './assets/ground.png');
         this.load.image('platform', './assets/platform.png');
         this.load.image('title', './assets/title2.png');
-        this.load.image('tt', './assets/tt.png'); 
+        this.load.image('tt', './assets/tt.png');
+        this.load.image('over', './assets/GameOver.png');
         
        
         this.load.image('bg1', './assets/bg1.png'); 
