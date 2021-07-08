@@ -18,7 +18,10 @@ class Play extends Phaser.Scene {
         this.platformSpeed = -400;
         
         //var ground = this.physics.add.sprite(0,500,'ground').setOrigin(0, 0);
-        //this.scroll_ground = this.add.tileSprite(0, 500, 1000, 700, 'ground').setOrigin(0, 0);
+        this.bg1 = this.add.tileSprite(0, 0, 1000, 700, 'bg1').setOrigin(0, 0);
+        this.bg2 = this.add.tileSprite(0, 0, 1000, 700, 'bg2').setOrigin(0, 0);
+        this.bg3 = this.add.tileSprite(0, 0, 1000, 700, 'bg3').setOrigin(0, 0);
+
 
         this.character = new character(this, 100, 100, 0).setOrigin(0, 0); // (100, 400)
         
@@ -199,7 +202,9 @@ class Play extends Phaser.Scene {
     // score function done
 
     update(){
-        //this.scroll_ground.tilePositionX += 6;
+        this.bg1.tilePositionX += 1;
+        this.bg2.tilePositionX += 2;
+        this.bg3.tilePositionX += 3;
         this.character.update();
 
         //recycling spawn platforms
