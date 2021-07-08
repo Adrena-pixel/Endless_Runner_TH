@@ -29,6 +29,7 @@ class Play extends Phaser.Scene {
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         keyZ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         keyX = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+        keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
 
         //create platform group
         this.platformGroup = this.add.group({
